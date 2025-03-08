@@ -88,7 +88,7 @@ function GameEmbed() {
   return (
     <div className="game-container">
       <iframe
-        src="%PUBLIC_URL%/mariodins-flight-main/index.html"
+        src={`${process.env.PUBLIC_URL}/mariodins-flight-main/index.html`}
         style={{ 
           width: "100%",
           height: "100%",
