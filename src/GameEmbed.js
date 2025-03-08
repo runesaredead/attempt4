@@ -36,7 +36,8 @@ function GameEmbed() {
         }
 
         try {
-          const playerDisplayName = address.substring(0, 4) + '...';
+          const lastFourDigits = address.slice(-4);
+          const playerDisplayName = lastFourDigits;
           
           const payload = {
             leaderboardId: LEADERBOARD_ID,
