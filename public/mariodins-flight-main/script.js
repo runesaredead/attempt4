@@ -1275,18 +1275,27 @@ const gameOver =
         try {
             if (window.parent && window.parent.walletAddress) {
                 walletAddress = window.parent.walletAddress;
+                console.log('Found wallet address:', walletAddress);
+            } else {
+                console.log('No wallet address found in parent window');
             }
         } catch (e) {
-            console.log("Could not access parent wallet address");
+            console.log("Could not access parent wallet address:", e);
         }
         
         // Send message to parent window (React app)
-        window.parent.postMessage({
-            type: 'gameScore',
-            score: score.game_score,
-            isNewHighScore: score.game_score >= score.best_score,
-            walletAddress: walletAddress
-        }, '*');
+        try {
+            console.log('Attempting to send score to parent window:', score.game_score);
+            window.parent.postMessage({
+                type: 'gameEnd',  // Changed to gameEnd to match the handler
+                score: score.game_score,
+                isNewHighScore: score.game_score >= score.best_score,
+                walletAddress: walletAddress
+            }, '*');
+            console.log('Score message sent successfully');
+        } catch (e) {
+            console.error('Error sending score to parent:', e);
+        }
         
         this.scoreSubmitted = true;
         this.notBestScore = false;

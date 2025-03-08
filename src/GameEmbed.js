@@ -9,6 +9,11 @@ function GameEmbed() {
   const { address } = useLaserEyes();
 
   useEffect(() => {
+    // Make wallet address available to the iframe
+    if (address) {
+      window.walletAddress = address;
+    }
+
     const handleGameEnd = async (event) => {
       // Skip wallet extension messages
       if (event.data && typeof event.data === 'object' && 
@@ -19,7 +24,8 @@ function GameEmbed() {
       
       // Only process game end messages
       if (event.data && typeof event.data === 'object' && 
-          event.data.type === 'gameEnd' && 'score' in event.data) {
+          ((event.data.type === 'gameEnd' && 'score' in event.data) ||
+           (event.data.type === 'gameScore' && 'score' in event.data))) {
         
         const score = event.data.score;
         console.log('Game over! Final score:', score);
