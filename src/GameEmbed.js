@@ -79,7 +79,7 @@ function GameEmbed() {
 
   return (
     <iframe
-      src="/attempt2build/mariodins-flight-main/index.html"
+      src="./mariodins-flight-main/index.html"
       style={{ 
         width: "100%",
         height: "100%",
